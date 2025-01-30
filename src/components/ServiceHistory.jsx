@@ -3,7 +3,7 @@ import React, { useMemo, useState } from "react";
 const ServiceHistory = () => {
   const [serviceData, setServiceData] = useState([])
 
-  const getData = async () => {
+  const getData = () => {
     try {
       fetch("http://127.0.0.1:8000/", {
         headers: {
@@ -11,10 +11,8 @@ const ServiceHistory = () => {
         }
       })
         .then(res => res.json())
-        .then(data => {
-          setServiceData(data)
-        })
-
+        .then(data => setServiceData(data))
+        .catch(error => console.log(error))
     } catch (error) {
       console.log("An error has occured fetching data")
     }
@@ -23,8 +21,6 @@ const ServiceHistory = () => {
   useMemo(() => {
     getData()
   }, [])
-
-  console.log(serviceData)
 
   return (
     <React.Fragment>
