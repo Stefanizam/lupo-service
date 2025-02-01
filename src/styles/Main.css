@@ -1,9 +1,25 @@
 .App {
-  background-color: #282c34;
+  background-color: #091217;
   width: 100%;
   color: white;
 }
 
-.service-card:hover  {
-  background-color: rgb(37, 41, 45) !important;
+.bg-tertiary {
+  background-color: #0f1920 !important;
+}
+
+.service-card {
+  cursor: default;
+  transition-duration: 0.1s;
+}
+
+.service-card:hover {
+  background-color: #101d24 !important;
+  transform: scale(1.02);
+}
+
+.service-item {
+  padding: 0.75rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0px 6px 6px rgba(255, 255, 255, 0.01);
 }
