@@ -1,5 +1,9 @@
 .App {
   background-color: #282c34;
-  min-height: 150vh;
+  width: 100%;
   color: white;
+}
+
+.service-card:hover  {
+  background-color: rgb(37, 41, 45) !important;
 }

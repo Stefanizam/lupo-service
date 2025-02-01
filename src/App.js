@@ -4,7 +4,7 @@ import ServiceHistory from './components/ServiceHistory';
 
 function App() {
   return (
-    <div className="App container-fluid p-0 m-0">
+    <div className="App py-5 px-0 m-0">
       <NavBar />
       <ServiceHistory />
     </div>

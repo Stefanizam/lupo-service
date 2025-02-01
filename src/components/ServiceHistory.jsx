@@ -1,35 +1,30 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const ServiceHistory = () => {
   const [serviceData, setServiceData] = useState([])
 
-  const getData = () => {
-    try {
-      fetch("http://127.0.0.1:8000/", {
-        headers: {
-          "Access-Control-Allow-Headers": "*"
-        }
-      })
-        .then(res => res.json())
-        .then(data => setServiceData(data))
-        .catch(error => console.log(error))
-    } catch (error) {
-      console.log("An error has occured fetching data")
-    }
-  }
+  useEffect(() => {
+    const getData = async () => {
+      const dataResponse = await fetch("http://127.0.0.1:8000/", { method: "GET", headers: { "Access-Control-Allow-Headers": "*" } });
+      const responseJson = await dataResponse.json();
 
-  useMemo(() => {
-    getData()
+      setServiceData(responseJson)
+    }
+    getData();
   }, [])
 
   return (
     <React.Fragment>
-      <div style={{ paddingTop: "4rem" }}>
-        {serviceData.map((item, index) => {
-          return (<div className="text-white" key={`item-${index}`}>
-            <span>Date: {item.date}</span>
-          </div>)
-        })}
+      <div style={{ paddingTop: "4rem" }} className="overflow-hidden d-flex justify-content-center w-100">
+        <div className="w-50">
+          {serviceData && serviceData.map((item, index) => {
+            return (<div className="card border-success bg-dark text-white mb-4 service-card" key={`item-${index}`}>
+              <div className="card-body">
+                {item.shop}
+              </div>
+            </div>)
+          })}
+        </div>
       </div>
     </React.Fragment>
   )
