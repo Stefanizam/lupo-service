@@ -8,16 +8,26 @@ import { useDebounce } from './components/custom-hooks/useDebounce';
 function App() {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [loadingStatus, setLoadingStatus] = useState(false);
+
   const handleSearch = useDebounce(() => {
     setDebouncedSearch(searchInput);
-  }, 1500)
+    setLoadingStatus(false);
+  }, 1000)
 
   return (
     <div className="App py-5 px-0 m-0">
       <NavBar
         clickSearch={handleSearch}
         searchInput={searchInput}
-        setSearchInput={setSearchInput} />
+        setSearchInput={setSearchInput}
+        setLoadingStatus={setLoadingStatus} />
+      {loadingStatus &&
+        <div className="d-flex justify-content-center">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>}
       <ServiceHistory debouncedSearch={debouncedSearch} />
     </div>
   );

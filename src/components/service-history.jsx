@@ -2,23 +2,30 @@ import React, { useEffect, useMemo, useState } from "react";
 import ErrorModal from "./error-modal";
 
 const ServiceHistory = ({ debouncedSearch }) => {
-  const [serviceData, setServiceData] = useState([]);
+  const [originalData, setOriginalData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
   useMemo(() => {
-    console.log(debouncedSearch);
-  }, [debouncedSearch])
+    if (debouncedSearch === "") {
+      setFilteredData(originalData);
+    } else {
+      const updatedData = originalData.filter((item) => item.shop.toLowerCase().includes(debouncedSearch.toLowerCase()));
+      setFilteredData(updatedData);
+    }
+  }, [debouncedSearch, originalData])
 
   useEffect(() => {
     const getData = async () => {
       const dataResponse = await fetch("http://127.0.0.1:8000/", { method: "GET", headers: { "Access-Control-Allow-Headers": "*" } });
       if (dataResponse.status === 200) {
         const responseJson = await dataResponse.json();
-        setServiceData(responseJson)
+        setOriginalData(responseJson);
+        setFilteredData(responseJson);
       } else if (dataResponse.status === 404) {
-        setErrorMessage("There's been an error fetching data for this vehicle")
+        setErrorMessage("There's been an error fetching data for this vehicle");
       } else {
-        setServiceData([])
+        setFilteredData([]);
       }
     }
 
@@ -29,8 +36,8 @@ const ServiceHistory = ({ debouncedSearch }) => {
     <React.Fragment>
       <div style={{ paddingTop: "4rem" }} className="overfdlow-hidden d-flex justify-content-center w-100">
         <div className="w-50">
-          {serviceData && serviceData.length > 0 ?
-            serviceData.map((item, index) => {
+          {filteredData && filteredData.length > 0 ?
+            filteredData.map((item, index) => {
               return (<div className="card border-success text-white mb-4 service-card bg-tertiary" key={`item-${index}`}>
                 <div className="card-body p-0">
                   <h3 className="card-title mb-1 px-4 pt-4"><strong>{item.shop}</strong></h3>
