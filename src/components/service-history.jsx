@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import ErrorModal from "./error-modal";
 
-const ServiceHistory = () => {
+const ServiceHistory = ({ debouncedSearch }) => {
   const [serviceData, setServiceData] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+
+  useMemo(() => {
+    console.log(debouncedSearch);
+  }, [debouncedSearch])
 
   useEffect(() => {
     const getData = async () => {
@@ -11,7 +16,7 @@ const ServiceHistory = () => {
         const responseJson = await dataResponse.json();
         setServiceData(responseJson)
       } else if (dataResponse.status === 404) {
-        setErrorMessage("No data registered for this vehicle")
+        setErrorMessage("There's been an error fetching data for this vehicle")
       } else {
         setServiceData([])
       }
@@ -47,6 +52,7 @@ const ServiceHistory = () => {
               <strong>No service data registered for this vehicle</strong>
             </h5>
           }
+          {errorMessage && <ErrorModal errorMessage={errorMessage} setErrorMessage={setErrorMessage} />}
         </div>
       </div>
     </React.Fragment>
