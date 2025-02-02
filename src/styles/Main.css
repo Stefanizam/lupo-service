@@ -8,6 +8,50 @@
   background-color: #0f1920 !important;
 }
 
+.transition-quick {
+  transition-duration: 0.15s;
+}
+
+.navbar-background {
+  z-index: 1;
+}
+
+.show {
+  transform: translateY(0);
+}
+
+.hide {
+  transform: translateY(-100%);
+}
+
+.search-form {
+  z-index: 2;
+}
+
+.clear-search {
+  border-right: 0px;
+}
+
+.search-spinner {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+
+.search-btn-icon {
+  display: none;
+}
+
+@media only screen and (max-width: 500px) {
+  .search-btn-text {
+    display: none;
+  }
+
+  .search-btn-icon {
+    display: block;
+  }
+}
+
 .service-card {
   cursor: default;
   transition-duration: 0.1s;
@@ -29,6 +73,5 @@
   position: absolute;
   top: 0;
   left: 0;
-  
-  background-color:rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
 }

@@ -17,7 +17,7 @@ const ServiceHistory = ({ debouncedSearch }) => {
 
   useEffect(() => {
     const getData = async () => {
-      const dataResponse = await fetch("http://127.0.0.1:8000/", { method: "GET", headers: { "Access-Control-Allow-Headers": "*" } });
+      const dataResponse = await fetch("http://192.168.126.105:5000/", { method: "GET", headers: { "Access-Control-Allow-Headers": "*" } });
       if (dataResponse.status === 200) {
         const responseJson = await dataResponse.json();
         setOriginalData(responseJson);
@@ -35,7 +35,7 @@ const ServiceHistory = ({ debouncedSearch }) => {
   return (
     <React.Fragment>
       <div style={{ paddingTop: "4rem" }} className="overfdlow-hidden d-flex justify-content-center w-100">
-        <div className="w-50">
+        <div className="px-3">
           {filteredData && filteredData.length > 0 ?
             filteredData.map((item, index) => {
               return (<div className="card border-success text-white mb-4 service-card bg-tertiary" key={`item-${index}`}>
