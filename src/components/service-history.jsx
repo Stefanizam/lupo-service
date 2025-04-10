@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ErrorModal from "./error-modal";
+import serviceData from "./services-temp-db.json"
 
 const ServiceHistory = ({ debouncedSearch }) => {
   const [originalData, setOriginalData] = useState([]);
@@ -17,16 +18,16 @@ const ServiceHistory = ({ debouncedSearch }) => {
 
   useEffect(() => {
     const getData = async () => {
-      const dataResponse = await fetch("http://192.168.126.105:5000/", { method: "GET", headers: { "Access-Control-Allow-Headers": "*" } });
-      if (dataResponse.status === 200) {
-        const responseJson = await dataResponse.json();
-        setOriginalData(responseJson);
-        setFilteredData(responseJson);
-      } else if (dataResponse.status === 404) {
-        setErrorMessage("There's been an error fetching data for this vehicle");
-      } else {
-        setFilteredData([]);
-      }
+      // const dataResponse = await fetch("http://192.168.126.105:5000/", { method: "GET", headers: { "Access-Control-Allow-Headers": "*" } });
+      // if (dataResponse.status === 200) {
+        // const responseJson = await dataResponse.json();
+        setOriginalData(serviceData);
+        setFilteredData(serviceData);
+      // } else if (dataResponse.status === 404) {
+        // setErrorMessage("There's been an error fetching data for this vehicle");
+      // } else {
+        // setFilteredData([]);
+      // }
     }
 
     getData();
