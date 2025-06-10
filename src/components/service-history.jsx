@@ -11,7 +11,7 @@ const ServiceHistory = ({ debouncedSearch }) => {
     if (debouncedSearch === "") {
       setFilteredData(originalData);
     } else {
-      const updatedData = originalData.filter((item) => item.shop.toLowerCase().includes(debouncedSearch.toLowerCase()));
+      const updatedData = originalData.filter((item) => item.services.some(value => value.toLowerCase().includes(debouncedSearch.toLowerCase())) || item.shop.toLowerCase().includes(debouncedSearch.toLowerCase()));
       setFilteredData(updatedData);
     }
   }, [debouncedSearch, originalData])
@@ -36,7 +36,7 @@ const ServiceHistory = ({ debouncedSearch }) => {
   return (
     <React.Fragment>
       <div style={{ paddingTop: "4rem" }} className="overfdlow-hidden d-flex justify-content-center w-100">
-        <div className="px-3">
+        <div className="px-5 w-100">
           {filteredData && filteredData.length > 0 ?
             filteredData.map((item, index) => {
               return (<div className="card border-success text-white mb-4 service-card bg-tertiary" key={`item-${index}`}>

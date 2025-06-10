@@ -28,30 +28,6 @@
   z-index: 2;
 }
 
-.clear-search {
-  border-right: 0px;
-}
-
-.search-spinner {
-  position: absolute;
-  right: 8px;
-  top: 8px;
-}
-
-.search-btn-icon {
-  display: none;
-}
-
-@media only screen and (max-width: 500px) {
-  .search-btn-text {
-    display: none;
-  }
-
-  .search-btn-icon {
-    display: block;
-  }
-}
-
 .service-card {
   cursor: default;
   transition-duration: 0.1s;

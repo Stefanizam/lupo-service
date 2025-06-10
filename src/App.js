@@ -1,20 +1,17 @@
-import './styles/Main.css';
+import './styles/Main.scss';
 import { useEffect, useState } from 'react';
 
 import NavBar from './components/nav-bar';
 import ServiceHistory from './components/service-history';
-import { useDebounce } from './components/custom-hooks/useDebounce';
 
 function App() {
   const [searchInput, setSearchInput] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [loadingStatus, setLoadingStatus] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const handleSearch = useDebounce(() => {
-    setDebouncedSearch(searchInput);
-    setLoadingStatus(false);
-  }, 1000)
+  const handleSearch = (value) => {
+    setSearchInput(value);
+  }
+
 
   const handleScroll = () => {
     if (window.scrollY > 50) {
@@ -36,13 +33,10 @@ function App() {
   return (
     <div className="App py-5 px-0 m-0">
       <NavBar
-        clickSearch={handleSearch}
         searchInput={searchInput}
-        setSearchInput={setSearchInput}
-        loadingStatus={loadingStatus}
-        setLoadingStatus={setLoadingStatus}
+        setSearchInput={handleSearch}
         scrolled={scrolled} />
-      <ServiceHistory debouncedSearch={debouncedSearch} />
+      <ServiceHistory debouncedSearch={searchInput} />
     </div>
   );
 }
